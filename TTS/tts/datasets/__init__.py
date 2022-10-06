@@ -70,6 +70,21 @@ def add_extra_keys(metadata, language, dataset_name):
 
     return metadata
 
+def _get_formatter_by_name(name):
+    """Returns the respective preprocessing function."""
+    thismodule = sys.modules[__name__]
+    return getattr(thismodule, name.lower())
+    
+def load_attention_mask_meta_data(metafile_path):
+    """Load meta data file created by compute_attention_masks.py"""
+    with open(metafile_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    meta_data = []
+    for line in lines:
+        wav_file, attn_file = line.split("|")
+        meta_data.append([wav_file, attn_file])
+    return meta_data
 
 def load_tts_samples(
     datasets: Union[List[Dict], Dict],
@@ -149,25 +164,6 @@ def load_tts_samples(
         # set none for the next iter
         formatter = None
     return meta_data_train_all, meta_data_eval_all
-
-
-def load_attention_mask_meta_data(metafile_path):
-    """Load meta data file created by compute_attention_masks.py"""
-    with open(metafile_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-
-    meta_data = []
-    for line in lines:
-        wav_file, attn_file = line.split("|")
-        meta_data.append([wav_file, attn_file])
-    return meta_data
-
-
-def _get_formatter_by_name(name):
-    """Returns the respective preprocessing function."""
-    thismodule = sys.modules[__name__]
-    return getattr(thismodule, name.lower())
-
 
 def find_unique_chars(data_samples, verbose=True):
     texts = "".join(item[0] for item in data_samples)

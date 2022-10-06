@@ -7,8 +7,8 @@ from tqdm.contrib.concurrent import process_map
 
 from TTS.config import load_config
 from TTS.tts.datasets import load_tts_samples
-from TTS.tts.utils.text.phonemizers import Gruut
-
+#from TTS.tts.utils.text.phonemizers import Gruut
+from TTS.tts.utils.text.phonemizers.espeak_wrapper import ESpeak
 
 def compute_phonemes(item):
     text = item["text"]
@@ -52,7 +52,7 @@ def main():
             "Currently, just one phoneme language per config file is supported !! Please split the dataset config into different configs and run it individually for each language !!"
         )
 
-    phonemizer = Gruut(language=language_list[0], keep_puncs=True)
+    phonemizer = ESpeak(language=language_list[0], keep_puncs=True)
 
     phonemes = process_map(compute_phonemes, items, max_workers=multiprocessing.cpu_count(), chunksize=15)
     phones = []

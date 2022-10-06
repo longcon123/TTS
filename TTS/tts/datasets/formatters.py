@@ -592,3 +592,15 @@ def kss(root_path, meta_file, **kwargs):  # pylint: disable=unused-argument
             text = cols[2]  # cols[1] => 6월, cols[2] => 유월
             items.append({"text": text, "audio_file": wav_file, "speaker_name": speaker_name})
     return items
+
+def vivos(root_path, meta_file, **kwargs):
+    items = []
+    with open(os.path.join(root_path, meta_file), "r", encoding="utf-8") as meta:
+        for line in meta:
+            file, text = line.split("|") # text => 'text.\n' need remove '\n' using text[:-1]
+            speaker_id, audio_id = file.split("_")
+            wav_file = os.path.join(root_path, os.path.dirname(meta_file), "wavs", file + ".wav")
+            items.append(
+                {"text": text[:-1], "audio_file": wav_file, "speaker_name": speaker_id, "root_path": root_path}
+            )
+    return items

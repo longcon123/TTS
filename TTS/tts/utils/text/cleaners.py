@@ -2,28 +2,28 @@
 # TODO: pick the cleaner for languages dynamically
 
 import re
-
+from vinorm import TTSnorm
 from anyascii import anyascii
 
 from TTS.tts.utils.text.chinese_mandarin.numbers import replace_numbers_to_characters_in_text
 
-from .english.abbreviations import abbreviations_en
-from .english.number_norm import normalize_numbers as en_normalize_numbers
-from .english.time_norm import expand_time_english
-from .french.abbreviations import abbreviations_fr
+# from .english.abbreviations import abbreviations_en
+# from .english.number_norm import normalize_numbers as en_normalize_numbers
+# from .english.time_norm import expand_time_english
+# from .french.abbreviations import abbreviations_fr
 
 # Regular expression matching whitespace:
 _whitespace_re = re.compile(r"\s+")
 
 
-def expand_abbreviations(text, lang="en"):
-    if lang == "en":
-        _abbreviations = abbreviations_en
-    elif lang == "fr":
-        _abbreviations = abbreviations_fr
-    for regex, replacement in _abbreviations:
-        text = re.sub(regex, replacement, text)
-    return text
+# def expand_abbreviations(text, lang="en"):
+#     if lang == "en":
+#         _abbreviations = abbreviations_en
+#     elif lang == "fr":
+#         _abbreviations = abbreviations_fr
+#     for regex, replacement in _abbreviations:
+#         text = re.sub(regex, replacement, text)
+#     return text
 
 
 def lowercase(text):
@@ -86,6 +86,12 @@ def basic_turkish_cleaners(text):
     text = collapse_whitespace(text)
     return text
 
+def vietnamese_cleaners(text):
+    """Pipeline for Vietnamese text"""
+    #Có phải tháng 12/2020 đã có vaccine phòng ngừa
+    text = TTSnorm(text)
+    text = collapse_whitespace(text)
+    return text
 
 def english_cleaners(text):
     """Pipeline for English text, including number and abbreviation expansion."""
@@ -143,3 +149,4 @@ def multilingual_cleaners(text):
     text = remove_aux_symbols(text)
     text = collapse_whitespace(text)
     return text
+
