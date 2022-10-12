@@ -20,7 +20,7 @@ _pad = "<PAD>"
 _eos = "<EOS>"
 _bos = "<BOS>"
 _blank = "<BLNK>"  # TODO: check if we need this alongside with PAD
-_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+_characters = "abcdeghiklmnopqrstuvxyàáâãèéêìíòóôõùúýăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ"
 _punctuations = "!'(),-.:;? "
 
 
@@ -32,8 +32,8 @@ _pulmonic_consonants = "pbtdʈɖcɟkɡqɢʔɴŋɲɳnɱmʙrʀⱱɾɽɸβfvθðsz�
 _suprasegmentals = "ˈˌːˑ."
 _other_symbols = "ʍwɥʜʢʡɕʑɺɧʲ"
 _diacrilics = "ɚ˞ɫ"
-_numbers = "123456"
-_unique = " []_ʰʷ̆͡"
+_numbers = "1234567"
+_unique = " []_ʰʷ̆͡  .:abcdefhijklmnopstuvwxyzæŋɒɔɕɗəɛɜɡɣɪɲɹʂʃʊʒˈˌː̪"
 _phonemes = _vowels + _non_pulmonic_consonants + _pulmonic_consonants + _suprasegmentals + _numbers + _other_symbols + _diacrilics + _unique
 
 class BaseVocabulary:
